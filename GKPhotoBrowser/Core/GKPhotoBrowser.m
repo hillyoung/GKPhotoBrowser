@@ -96,6 +96,7 @@ static Class livePhotoClass = nil;
     self.doubleZoomScale         = self.maxZoomScale;
     self.animDuration            = kAnimationDuration;
     self.photoViewPadding        = kPhotoViewPadding;
+    _defaultMaxZoomScale         = self.maxZoomScale;
     self.hidesSavedBtn           = YES;
     self.showPlayImage           = YES;
     self.isVideoReplay           = YES;

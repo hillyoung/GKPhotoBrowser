@@ -204,6 +204,10 @@ typedef void(^layoutBlock)(GKPhotoBrowser *photoBrowser, CGRect superFrame);
 /// 是否隐藏saveBtn，默认YES
 @property (nonatomic, assign) BOOL hidesSavedBtn;
 
+/// 默认图片高度
+@property (nonatomic) CGFloat defaultImageHeight;
+/// 默认最大缩放比例
+@property (nonatomic, readonly) CGFloat defaultMaxZoomScale;
 /// 图片最大放大倍数
 @property (nonatomic, assign) CGFloat maxZoomScale;
 

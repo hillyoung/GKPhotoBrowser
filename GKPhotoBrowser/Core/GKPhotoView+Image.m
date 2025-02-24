@@ -238,8 +238,16 @@
         
         // 图片的宽度 = 屏幕的宽度
         CGFloat ratio = frame.size.width / imageFrame.size.width;
-        imageFrame.size.width = frame.size.width;
-        imageFrame.size.height = ratio * imageFrame.size.height;
+        if (self.browser.defaultImageHeight > 0) {
+            CGFloat factor = imageSize.height == 0 ? 1:imageSize.width / imageSize.height;
+            imageFrame.size.height = self.browser.defaultImageHeight;
+            imageFrame.size.width = self.browser.defaultImageHeight * factor;
+            self.browser.maxZoomScale = self.browser.defaultMaxZoomScale * MAX(1.0, frame.size.width / imageFrame.size.width);
+        } else {
+            imageFrame.size.width = frame.size.width;
+            imageFrame.size.height = ratio * imageFrame.size.height;
+            self.browser.maxZoomScale = self.browser.defaultMaxZoomScale;
+        }
         
         // 默认情况下，显示出的图片的宽度 = 屏幕的宽度
         // 如果isFullWidthForLandScape = NO,需要把图片全部显示在屏幕上
