@@ -82,3 +82,7 @@ typedef NS_ENUM(NSUInteger, GKPhotoBrowserFailStyle) {
 + (UIImage *)gk_imageWithName:(NSString *)name;
 
 @end
+
+
+extern UIScreen * GKCurrentScreen(void) ;
+extern CGFloat GKCurrentScreenScale(void) ;

@@ -8,6 +8,7 @@
 
 #import "UIScrollView+GKPhotoBrowser.h"
 #import <objc/runtime.h>
+#import "GKPhotoBrowserConfigure.h"
 
 static const void* GKGestureHandleEnabled = @"GKGestureHandleEnabled";
 
@@ -46,7 +47,7 @@ static const void* GKGestureHandleEnabled = @"GKGestureHandleEnabled";
         UIGestureRecognizerState state = gestureRecognizer.state;
         
         // 设置手势滑动的位置距屏幕左边的区域
-        CGFloat locationDistance = [UIScreen mainScreen].bounds.size.width;
+        CGFloat locationDistance = GKCurrentScreen().bounds.size.width;
         
         if (state == UIGestureRecognizerStateBegan || state == UIGestureRecognizerStatePossible) {
             CGPoint location = [gestureRecognizer locationInView:self];

@@ -105,7 +105,7 @@
         }
     }
     
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGRect screenBounds = GKCurrentScreen().bounds;
     
     // 旋转之后是横屏
     if (UIDeviceOrientationIsLandscape(currentOrientation)) {

@@ -9,10 +9,37 @@
 #import "GKPhotoBrowserConfigure.h"
 
 /// 设备宽度，跟横竖屏无关
-#define GKPHOTO_DEVICE_WIDTH MIN([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)
+#define GKPHOTO_DEVICE_WIDTH MIN([GKCurrentScreen() bounds].size.width, [GKCurrentScreen() bounds].size.height)
 
 /// 设备高度，跟横竖屏无关
-#define GKPHOTO_DEVICE_HEIGHT MAX([[UIScreen mainScreen] bounds].size.width, [[UIScreen mainScreen] bounds].size.height)
+#define GKPHOTO_DEVICE_HEIGHT MAX([GKCurrentScreen() bounds].size.width, [GKCurrentScreen() bounds].size.height)
+
+
+UIScreen * GKCurrentScreen(void) {
+    // iOS 13+ 多 Scene
+    if (@available(iOS 26.0, *)) {
+        for (UIScene *scene in UIApplication.sharedApplication.connectedScenes) {
+            if (scene.activationState == UISceneActivationStateForegroundActive &&
+                [scene isKindOfClass:[UIWindowScene class]]) {
+                UIWindowScene *ws = (UIWindowScene *)scene;
+                UIWindow *keyWin = ws.keyWindow ?: ws.windows.firstObject;
+                if (keyWin) {
+                    return keyWin.screen;
+                }
+            }
+        }
+    }
+    // 兜底：老逻辑
+    return [UIScreen mainScreen];
+}
+
+CGFloat GKCurrentScreenScale(void) {
+    if (@available(iOS 26.0, *)) {
+        return [UITraitCollection currentTraitCollection].displayScale;
+    } else {
+        return [UIScreen mainScreen].scale;
+    }
+}
 
 NSString *const GKPhotoBrowserBundleName = @"GKPhotoBrowser";
 
@@ -111,7 +138,7 @@ static NSInteger isNotchedScreen = -1;
              */
             SEL peripheryInsetsSelector = NSSelectorFromString([NSString stringWithFormat:@"_%@%@", @"periphery", @"Insets"]);
             UIEdgeInsets peripheryInsets = UIEdgeInsetsZero;
-            [self object:[UIScreen mainScreen] performSelector:peripheryInsetsSelector returnValue:&peripheryInsets];
+            [self object:GKCurrentScreen() performSelector:peripheryInsetsSelector returnValue:&peripheryInsets];
             if (peripheryInsets.bottom <= 0) {
                 UIWindow *window = [[UIWindow alloc] initWithFrame:UIScreen.mainScreen.bounds];
                 peripheryInsets = window.safeAreaInsets;

@@ -144,7 +144,7 @@
         CGPoint arcCenter = [self layerCenter];
         
         _animatedLayer               = [CAShapeLayer layer];
-        _animatedLayer.contentsScale = [UIScreen mainScreen].scale;
+        _animatedLayer.contentsScale = GKCurrentScreenScale();
         _animatedLayer.frame         = CGRectMake(0, 0, arcCenter.x * 2, arcCenter.y * 2);
         _animatedLayer.fillColor     = [UIColor clearColor].CGColor;
         _animatedLayer.strokeColor   = self.strokeColor.CGColor;
@@ -183,7 +183,7 @@
                                                                  clockwise:YES];
         
         _backgroundLayer               = [CAShapeLayer layer];
-        _backgroundLayer.contentsScale = [UIScreen mainScreen].scale;
+        _backgroundLayer.contentsScale = GKCurrentScreenScale();
         _backgroundLayer.frame         = CGRectMake(0.0f, 0.0f, arcCenter.x * 2, arcCenter.y * 2);
         _backgroundLayer.fillColor     = [UIColor clearColor].CGColor;
         _backgroundLayer.strokeColor   = self.bgColor.CGColor;

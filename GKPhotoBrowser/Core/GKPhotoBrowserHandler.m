@@ -167,7 +167,7 @@
 // 恢复动画，如果是横屏先恢复到竖屏再消失
 - (void)recoverAnimation {
     UIDeviceOrientation orientation = [UIDevice currentDevice].orientation;
-    CGRect screenBounds = [UIScreen mainScreen].bounds;
+    CGRect screenBounds = GKCurrentScreen().bounds;
     
     if (!self.browser.isFollowSystemRotation && self.browser.supportedInterfaceOrientations == UIInterfaceOrientationMaskPortrait && UIDeviceOrientationIsLandscape(orientation)) {
         self.isRecover = YES;
